@@ -42,7 +42,7 @@ def trade_histories(file):
 
 def process_activities_log(file):
     print("Activities Log:")
-    df = pd.read_csv(file, header=1, sep=';')
+    df = pd.read_csv(file, header=0, sep=';')
     return df
 
 
