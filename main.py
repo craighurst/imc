@@ -6,43 +6,6 @@ import re
 import os
 
 
-def process_trade_history(section):
-    trade_history = json.loads(section.split(':', 1)[1])
-    print("Trade History:")
-    for trade in trade_history:
-        print(trade)  # Or perform any other processing
-
-
-def process_sandbox_logs(sandbox_logs_section):
-    logs = [line.strip() for line in sandbox_logs_section.split('\n\n') if line.strip()]
-
-    # Process each JSON object
-    print("\nSandbox Logs:")
-    for log in logs:
-        log_data = json.loads(log)
-        sandbox_log = log_data.get('sandboxLog')
-        lambda_log = log_data.get('lambdaLog')
-        timestamp = log_data.get('timestamp')
-        print(f"Timestamp: {timestamp}, Sandbox Log: {sandbox_log}, Lambda Log: {lambda_log}")
-
-
-def main():
-    # Split the content into sections
-    with open('/Users/lbw/Downloads/imctest.log', 'r') as f:
-        file_content = f.read()
-    sections = file_content.split('\n\n')
-    process_sandbox_logs(file_content)
-    # Process each section
-    for section in sections:
-        section_header, section_content = section.split(':', 1)
-        if section.startswith('Trade History:'):
-            process_trade_history(section)
-        elif section.startswith('Activities log:'):
-            process_activities_log(section)
-        elif section.startswith('Sandbox logs:'):
-            process_sandbox_logs(section)
-
-
 def json_parse(fileobj, decoder=JSONDecoder(), buffersize=2048):
     buffer = ''
     for chunk in iter(partial(fileobj.read, buffersize), ''):
@@ -165,7 +128,7 @@ if __name__ == '__main__':
     # Test file to make it easier to debug
     log_file = path + 'imctest.log'
     # original file
-    # log_file = path + 'f581c373-bbcd-4550-b2f8-1e5af6cdae81.log'
+    log_file = path + 'f581c373-bbcd-4550-b2f8-1e5af6cdae81.log'
 
     for df in process_imc_log(log_file):
         print(df)
