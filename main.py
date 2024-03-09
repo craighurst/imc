@@ -46,7 +46,7 @@ def process_activities_log(file):
     return df
 
 
-def extract_attributes_2(trader_data):
+def extract_attributes(trader_data):
     # Some trader data log entries do not have values
     if trader_data == "":
         return {}, {}
@@ -92,7 +92,7 @@ def extract_attributes_2(trader_data):
 
 def extract_trader_data(sandbox_data):
     sandbox_data['plainValueObservations'], sandbox_data["conversionObservations"] = zip(
-        *sandbox_data['lambdaLog'].apply(extract_attributes_2))
+        *sandbox_data['lambdaLog'].apply(extract_attributes))
 
     return sandbox_data
 
